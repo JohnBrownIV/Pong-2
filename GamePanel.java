@@ -2,14 +2,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MyPanel extends JPanel implements ActionListener {
+public class GamePanel extends JPanel implements ActionListener {
 
 Timer timer;
 
  
- MyPanel(boolean players){
-  
-  //image = new ImageIcon("sky.png").getImage();
+ GamePanel(int players){
   this.setPreferredSize(new Dimension(1300,800));
   timer = new Timer(5, this);
 	timer.start();
