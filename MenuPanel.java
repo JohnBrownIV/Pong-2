@@ -35,5 +35,64 @@ public class MenuPanel extends JPanel {
   g2D.setColor(Color.white);
   g2D.setFont(new Font("Comic Sans MS", 1,50));
   g2D.drawString("2 PLAYERS", 515, 420);
+  //Button 3
+  g2D.fillRect(450, 500, 400, 100);
+  g2D.setColor(Color.black);
+  g2D.fillRect(460, 510, 380, 80);
+  g2D.setColor(Color.white);
+  g2D.setFont(new Font("Comic Sans MS", 1,50));
+  g2D.drawString("0 PLAYERS", 515, 570);
+  switch (selected) {
+    case 0:
+    g2D.setColor(Color.white);
+    g2D.fillRect(450, 200, 400, 100);
+    g2D.fillRect(460, 210, 380, 80);
+    g2D.setColor(Color.black);
+    g2D.setFont(new Font("Comic Sans MS", 1,50));
+    g2D.drawString("1 PLAYER", 525, 270);
+      break;
+    case 1:
+      g2D.setColor(Color.white);
+      g2D.fillRect(450, 350, 400, 100);
+      g2D.fillRect(460, 360, 380, 80);
+      g2D.setColor(Color.black);
+      g2D.setFont(new Font("Comic Sans MS", 1,50));
+      g2D.drawString("2 PLAYERS", 515, 420);
+      break;
+    case 2:
+      g2D.setColor(Color.white);
+      g2D.fillRect(450, 500, 400, 100);
+      g2D.fillRect(460, 510, 380, 80);
+      g2D.setColor(Color.black);
+      g2D.setFont(new Font("Comic Sans MS", 1,50));
+      g2D.drawString("0 PLAYERS", 515, 570);
+      break;
+  }
+ }
+ public void up() {
+  selected--;
+  if (selected < 0) {
+    selected = 2;
+  }
+  repaint();
+ }
+ public void down() {
+  selected++;
+  if (selected > 2) {
+    selected = 0;
+  }
+  repaint();
+ }
+ public int select() {
+  int out = 1;
+  switch (selected) {
+    case 0:
+      out = 1;
+    case 1:
+      out = 2;
+    case 3:
+      out = 0;
+  }
+  return out;
  }
 }
