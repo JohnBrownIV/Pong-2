@@ -41,6 +41,16 @@ public class MyFrame extends JFrame implements KeyListener{
         playerCount = Mpanel.select();
         startUp();
       }
+    } else {//This is the game
+      if (playerCount == 1) {
+        if (e.getKeyCode() == 40 || e.getKeyCode() == 83) {//down
+
+        } else if (e.getKeyCode() == 38 || e.getKeyCode() == 87) {//up
+          
+        }
+      } else if (playerCount == 2) {
+
+      }
     }
   }
   @Override
