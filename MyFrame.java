@@ -50,5 +50,6 @@ public class MyFrame extends JFrame implements KeyListener{
     this.remove(Mpanel);
     Gpanel = new GamePanel(playerCount);
     this.add(Gpanel);
+    this.revalidate();
   }
 }
