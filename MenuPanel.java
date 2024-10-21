@@ -88,10 +88,13 @@ public class MenuPanel extends JPanel {
   switch (selected) {
     case 0:
       out = 1;
+      break;
     case 1:
       out = 2;
+      break;
     case 3:
       out = 0;
+      break;
   }
   return out;
  }

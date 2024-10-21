@@ -44,9 +44,9 @@ public class MyFrame extends JFrame implements KeyListener{
     } else {//This is the game
       if (playerCount == 1) {
         if (e.getKeyCode() == 40 || e.getKeyCode() == 83) {//down
-
+          Gpanel.rPaddle.move = -1;
         } else if (e.getKeyCode() == 38 || e.getKeyCode() == 87) {//up
-          
+          Gpanel.rPaddle.move = 1;
         }
       } else if (playerCount == 2) {
 
@@ -55,10 +55,20 @@ public class MyFrame extends JFrame implements KeyListener{
   }
   @Override
 	public void keyReleased(KeyEvent e) {
+    if (!inMenu) {
+      if (playerCount == 1) {
+        if (e.getKeyCode() == 40 || e.getKeyCode() == 83 || e.getKeyCode() == 38 || e.getKeyCode() == 87) {//down
+          Gpanel.rPaddle.move = 0;
+        }
+      } else if (playerCount == 2) {
+
+      }
+    }
   }
   public void startUp() {
     this.remove(Mpanel);
     Gpanel = new GamePanel(playerCount);
+    inMenu = false;
     this.add(Gpanel);
     this.revalidate();
   }
