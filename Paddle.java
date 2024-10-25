@@ -3,6 +3,7 @@ public class Paddle extends Coord {
   int depth;
   int move;
   int speed;
+  int score;
   boolean bot;
 
   Paddle(int inX, int inY, boolean inBot) {
@@ -12,6 +13,7 @@ public class Paddle extends Coord {
     move = 0;
     speed = 5;
     bot = inBot;
+    score = 0;
   }
   public int getTop() {
     return y - height;
@@ -38,7 +40,7 @@ public class Paddle extends Coord {
     if (move != 0) {
       changeY(-1 * move * speed);
       if (getTop() < 0) {
-        y = y + height;
+        y = height;
       } else if (getBottom() > 800) {
         y = 800 - height;
       }
