@@ -16,6 +16,20 @@ public class Ball extends Coord implements Cloneable {
     changeX(hSpeed);
     changeY(vSpeed);
   }
+  public void increaseHSpeed(int am) {
+    if (hSpeed < 0) {
+      hSpeed -= am;
+    } else {
+      hSpeed += am;
+    }
+  }
+  public void increaseVSpeed(int am) {
+    if (vSpeed < 0) {
+      vSpeed -= am;
+    } else {
+      vSpeed += am;
+    }
+  }
   public Object clone() throws CloneNotSupportedException 
     { 
         return super.clone(); 

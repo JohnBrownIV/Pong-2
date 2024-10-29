@@ -15,7 +15,7 @@ public class Paddle extends Coord {
     speed = 5;
     bot = inBot;
     score = 0;
-    target = 0;
+    target = 400;
   }
   public int getTop() {
     return y - height;
@@ -30,15 +30,16 @@ public class Paddle extends Coord {
     advanceMove();
   }
   public void botDecide() {
-    if (target < getTop()) {
+    if (target < getTop() + 10) {
       move = 1;
-    } else if (target > getBottom()) {
+    } else if (target > getBottom() - 10) {
       move = -1;
     } else {
       move = 0;
     }
   }
   public void calculateTarget(Ball inBall) {
+    System.out.println("TARGETTING");
     Ball ball = new Ball(0,0);
     try {
       ball = (Ball)inBall.clone();
@@ -54,6 +55,17 @@ public class Paddle extends Coord {
         }
       }
       target = ball.y;
+    } else {
+      while (ball.x < x) {
+        ball.advance();
+        if (ball.getBottom() >= 800) {
+          ball.vSpeed = -1 * ball.vSpeed;
+        } else if (ball.getTop() <= 0) {
+          ball.vSpeed = -1 * ball.vSpeed;
+        }
+      }
+      target = ball.y;
+      System.out.println("Y - " + target + " + x - " + x);
     }
   }
   public void advanceMove() {

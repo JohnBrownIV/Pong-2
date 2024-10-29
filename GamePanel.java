@@ -10,23 +10,23 @@ Paddle rPaddle;
 Paddle lPaddle;
 Ball ball;
 
- 
  GamePanel(int inPlayers){
   this.setPreferredSize(new Dimension(1300,800));
   timer = new Timer(5, this);
 	timer.start();
   players = inPlayers;
   startUp();
-  ball = new Ball(650,400);
  }
  public void startUp() {
   rPaddle = new Paddle(1250,400, false);
   lPaddle = new Paddle(50,400, false);
+  ball = new Ball(650,400);
   if (players == 1) {
     lPaddle.bot = true;
   } else if (players == 0) {
     lPaddle.bot = true;
     rPaddle.bot = true;
+    rPaddle.calculateTarget(ball);
   }
  }
  
@@ -73,20 +73,28 @@ Ball ball;
     if (ball.x >= rPaddle.x && ball.x <= rPaddle.x + rPaddle.depth) {
       if (ball.getBottom() >= rPaddle.getTop() && ball.getTop() <= rPaddle.getBottom()) {
         ball.hSpeed = ball.hSpeed * -1;
-        ++rPaddle.score;
+        ball.increaseHSpeed(1);
         if (lPaddle.bot) {
           lPaddle.calculateTarget(ball);
         }
       }
-    } else if (ball.x <= lPaddle.x + lPaddle.depth && ball.x >= lPaddle.x) {//Left paddle
+    } else if (ball.x <= lPaddle.x + 20 && ball.x >= lPaddle.x) {//Left paddle
       if (ball.getBottom() >= lPaddle.getTop() && ball.getTop() <= lPaddle.getBottom()) {
         ball.hSpeed = ball.hSpeed * -1;
-        ++lPaddle.score;
+        ball.increaseHSpeed(1);
         if (rPaddle.bot) {
           rPaddle.calculateTarget(ball);
         }
 
       }
+    }
+    //Checking if the ball is off the screen
+    if (ball.x < 0) {
+      ball = new Ball(650, 400);
+      rPaddle.score += 1;
+    } else if (ball.x > 1300) {
+      ball = new Ball(650, 400);
+      lPaddle.score += 1;
     }
   }
 }
