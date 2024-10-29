@@ -5,6 +5,7 @@ public class Paddle extends Coord {
   int speed;
   int score;
   boolean bot;
+  int target;
 
   Paddle(int inX, int inY, boolean inBot) {
     super(inX,inY);
@@ -14,6 +15,7 @@ public class Paddle extends Coord {
     speed = 5;
     bot = inBot;
     score = 0;
+    target = 0;
   }
   public int getTop() {
     return y - height;
@@ -21,19 +23,37 @@ public class Paddle extends Coord {
   public int getBottom() {
     return y + height;
   }
-  public void advance(int bX, int bY, boolean bDirect) {
+  public void advance() {
     if (bot) {
-      botDecide(bX, bY, bDirect);
+      botDecide();
     }
     advanceMove();
   }
-  public void botDecide(int bX, int bY, boolean bDirect) {
-    if (bY < getTop()) {
+  public void botDecide() {
+    if (target < getTop()) {
       move = 1;
-    } else if (bY > getBottom()) {
+    } else if (target > getBottom()) {
       move = -1;
     } else {
       move = 0;
+    }
+  }
+  public void calculateTarget(Ball inBall) {
+    Ball ball = new Ball(0,0);
+    try {
+      ball = (Ball)inBall.clone();
+    } catch (Exception CloneNotSupportedException) {
+    }
+    if (x < 650) {//left
+      while (ball.x > x) {
+        ball.advance();
+        if (ball.getBottom() >= 800) {
+          ball.vSpeed = -1 * ball.vSpeed;
+        } else if (ball.getTop() <= 0) {
+          ball.vSpeed = -1 * ball.vSpeed;
+        }
+      }
+      target = ball.y;
     }
   }
   public void advanceMove() {

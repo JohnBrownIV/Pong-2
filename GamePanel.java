@@ -45,7 +45,7 @@ Ball ball;
   //Score
   g2D.setFont(new Font("Comic Sans MS", 1,75));
   g2D.drawString(lPaddle.score + "", 550, 80);
-  g2D.drawString(lPaddle.score + "", 710, 80);
+  g2D.drawString(rPaddle.score + "", 710, 80);
   //rPaddle
   g2D.fillRect(rPaddle.x, rPaddle.getTop(), rPaddle.depth, rPaddle.height * 2);
   //lPaddle
@@ -55,7 +55,8 @@ Ball ball;
  }
   @Override
 	public void actionPerformed(ActionEvent e) {
-    rPaddle.advance(0,0,false);
+    rPaddle.advance();
+    lPaddle.advance();
     ball.advance();
     ballChecks();
     repaint();
@@ -72,10 +73,19 @@ Ball ball;
     if (ball.x >= rPaddle.x && ball.x <= rPaddle.x + rPaddle.depth) {
       if (ball.getBottom() >= rPaddle.getTop() && ball.getTop() <= rPaddle.getBottom()) {
         ball.hSpeed = ball.hSpeed * -1;
+        ++rPaddle.score;
+        if (lPaddle.bot) {
+          lPaddle.calculateTarget(ball);
+        }
       }
-    } else if (ball.x <= lPaddle.x && ball.x >= lPaddle.x - lPaddle.depth) {//Left paddle
+    } else if (ball.x <= lPaddle.x + lPaddle.depth && ball.x >= lPaddle.x) {//Left paddle
       if (ball.getBottom() >= lPaddle.getTop() && ball.getTop() <= lPaddle.getBottom()) {
         ball.hSpeed = ball.hSpeed * -1;
+        ++lPaddle.score;
+        if (rPaddle.bot) {
+          rPaddle.calculateTarget(ball);
+        }
+
       }
     }
   }

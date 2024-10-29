@@ -1,4 +1,4 @@
-public class Ball extends Coord {
+public class Ball extends Coord implements Cloneable {
   int hSpeed;
   int vSpeed;
   Ball(int inX, int inY) {
@@ -16,4 +16,8 @@ public class Ball extends Coord {
     changeX(hSpeed);
     changeY(vSpeed);
   }
+  public Object clone() throws CloneNotSupportedException 
+    { 
+        return super.clone(); 
+    } 
 }
