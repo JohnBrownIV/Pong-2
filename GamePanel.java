@@ -8,6 +8,7 @@ Timer timer;
 int players;
 Paddle rPaddle;
 Paddle lPaddle;
+Ball ball;
 
  
  GamePanel(int inPlayers){
@@ -16,6 +17,7 @@ Paddle lPaddle;
 	timer.start();
   players = inPlayers;
   startUp();
+  ball = new Ball(650,400);
  }
  public void startUp() {
   rPaddle = new Paddle(1250,400, false);
@@ -48,10 +50,33 @@ Paddle lPaddle;
   g2D.fillRect(rPaddle.x, rPaddle.getTop(), rPaddle.depth, rPaddle.height * 2);
   //lPaddle
   g2D.fillRect(lPaddle.x, lPaddle.getTop(), lPaddle.depth, lPaddle.height * 2);
+  //ball
+  g2D.fillRect(ball.x - 10, ball.getTop(), 10, 10);
  }
   @Override
 	public void actionPerformed(ActionEvent e) {
     rPaddle.advance(0,0,false);
+    ball.advance();
+    ballChecks();
     repaint();
+  }
+
+  public void ballChecks() {
+    //Checking floor && ceiling
+    if (ball.getBottom() >= 800) {
+      ball.vSpeed = -1 * ball.vSpeed;
+    } else if (ball.getTop() <= 0) {
+      ball.vSpeed = -1 * ball.vSpeed;
+    }
+    //Checking right Paddle
+    if (ball.x >= rPaddle.x && ball.x <= rPaddle.x + rPaddle.depth) {
+      if (ball.getBottom() >= rPaddle.getTop() && ball.getTop() <= rPaddle.getBottom()) {
+        ball.hSpeed = ball.hSpeed * -1;
+      }
+    } else if (ball.x <= lPaddle.x && ball.x >= lPaddle.x - lPaddle.depth) {//Left paddle
+      if (ball.getBottom() >= lPaddle.getTop() && ball.getTop() <= lPaddle.getBottom()) {
+        ball.hSpeed = ball.hSpeed * -1;
+      }
+    }
   }
 }
