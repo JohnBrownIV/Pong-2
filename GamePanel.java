@@ -95,7 +95,7 @@ Ball ball;
       }
     }
     //Checking right Paddle
-    if (ball.x >= rPaddle.x && ball.x <= rPaddle.x + rPaddle.depth) {
+    if (ball.x >= rPaddle.x && ball.x <= rPaddle.x + ball.hSpeed) {
       if (ball.getBottom() >= rPaddle.getTop() && ball.getTop() <= rPaddle.getBottom()) {
         ball.hSpeed = ball.hSpeed * -1;
         //handling vertical bounce direction
@@ -107,7 +107,7 @@ Ball ball;
           lPaddle.calculateTarget(ball);
         }
       }
-    } else if (ball.x <= lPaddle.x + 20 && ball.x >= lPaddle.x) {//Left paddle
+    } else if (ball.x <= lPaddle.x + 20 && ball.x >= lPaddle.x + ball.hSpeed) {//Left paddle
       if (ball.getBottom() >= lPaddle.getTop() && ball.getTop() <= lPaddle.getBottom()) {
         ball.hSpeed = ball.hSpeed * -1;
         //handling vertical bounce direction
