@@ -12,7 +12,7 @@ public class Paddle extends Coord {
     height = 50;
     depth = 10;
     move = 0;
-    speed = 5;
+    speed = 7;
     bot = inBot;
     score = 0;
     target = 400;
@@ -39,7 +39,7 @@ public class Paddle extends Coord {
     }
   }
   public void calculateTarget(Ball inBall) {
-    System.out.println("TARGETTING");
+    //System.out.println("TARGETTING");
     Ball ball = new Ball(0,0);
     try {
       ball = (Ball)inBall.clone();

@@ -66,13 +66,42 @@ Ball ball;
     //Checking floor && ceiling
     if (ball.getBottom() >= 800) {
       ball.vSpeed = -1 * ball.vSpeed;
+      //Randomly changing the vertical speed
+      if (randomInt(1, 2) == 1) {//Changing speed
+        if (randomInt(1, 2) == 1) {//up or down
+          ball.vSpeed += 1;
+        } else {
+          ball.vSpeed -= 1;
+        }
+        if (lPaddle.bot && ball.hSpeed < 0) {
+          lPaddle.calculateTarget(ball);
+        } else if (rPaddle.bot && ball.hSpeed > 0) {
+          rPaddle.calculateTarget(ball);
+        }
+      }
     } else if (ball.getTop() <= 0) {
       ball.vSpeed = -1 * ball.vSpeed;
+      if (randomInt(1, 2) == 1) {//Changing speed
+        if (randomInt(1, 2) == 1) {//up or down
+          ball.vSpeed += 1;
+        } else {
+          ball.vSpeed -= 1;
+        }
+        if (lPaddle.bot && ball.hSpeed < 0) {
+          lPaddle.calculateTarget(ball);
+        } else if (rPaddle.bot && ball.hSpeed > 0) {
+          rPaddle.calculateTarget(ball);
+        }
+      }
     }
     //Checking right Paddle
     if (ball.x >= rPaddle.x && ball.x <= rPaddle.x + rPaddle.depth) {
       if (ball.getBottom() >= rPaddle.getTop() && ball.getTop() <= rPaddle.getBottom()) {
         ball.hSpeed = ball.hSpeed * -1;
+        //handling vertical bounce direction
+        if (rPaddle.move != 0) {
+          ball.vSpeed = Math.abs(ball.vSpeed) * rPaddle.move * -1;
+        }
         ball.increaseHSpeed(1);
         if (lPaddle.bot) {
           lPaddle.calculateTarget(ball);
@@ -81,6 +110,10 @@ Ball ball;
     } else if (ball.x <= lPaddle.x + 20 && ball.x >= lPaddle.x) {//Left paddle
       if (ball.getBottom() >= lPaddle.getTop() && ball.getTop() <= lPaddle.getBottom()) {
         ball.hSpeed = ball.hSpeed * -1;
+        //handling vertical bounce direction
+        if (lPaddle.move != 0) {
+          ball.vSpeed = Math.abs(ball.vSpeed) * lPaddle.move * -1;
+        }
         ball.increaseHSpeed(1);
         if (rPaddle.bot) {
           rPaddle.calculateTarget(ball);
@@ -96,5 +129,8 @@ Ball ball;
       ball = new Ball(650, 400);
       lPaddle.score += 1;
     }
+  }
+  private int randomInt(int min, int max) {
+    return (int)((Math.random() * max) + min);
   }
 }
