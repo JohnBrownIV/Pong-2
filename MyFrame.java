@@ -48,8 +48,16 @@ public class MyFrame extends JFrame implements KeyListener{
         } else if (e.getKeyCode() == 38 || e.getKeyCode() == 87) {//up
           Gpanel.rPaddle.move = 1;
         }
-      } else if (playerCount == 2) {
-
+      } else if (playerCount == 2) {//Two Player
+        if (e.getKeyCode() == 83) {//down R
+          Gpanel.lPaddle.move = -1;
+        } else if (e.getKeyCode() == 87) {//up R
+          Gpanel.lPaddle.move = 1;
+        } else if (e.getKeyCode() == 40) {//Down L
+          Gpanel.rPaddle.move = -1;
+        } else if (e.getKeyCode() == 38) {//up L
+          Gpanel.rPaddle.move = 1;
+        }
       }
     }
   }
@@ -61,7 +69,12 @@ public class MyFrame extends JFrame implements KeyListener{
           Gpanel.rPaddle.move = 0;
         }
       } else if (playerCount == 2) {
-
+        if (e.getKeyCode() == 83 || e.getKeyCode() == 87) {
+          Gpanel.lPaddle.move = 0;
+        }
+        if (e.getKeyCode() == 40 || e.getKeyCode() == 38) {
+          Gpanel.rPaddle.move = 0;
+        }
       }
     }
   }
