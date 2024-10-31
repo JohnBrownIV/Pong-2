@@ -87,7 +87,7 @@ public class MenuPanel extends JPanel {
     case 1:
       out = 2;
       break;
-    case 3:
+    case 2:
       out = 0;
       break;
   }

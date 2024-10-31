@@ -65,7 +65,7 @@ public class Paddle extends Coord {
         }
       }
       target = ball.y;
-      System.out.println("Y - " + target + " + x - " + x);
+      //System.out.println("Y - " + target + " + x - " + x);
     }
   }
   public void advanceMove() {

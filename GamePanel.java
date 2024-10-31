@@ -125,9 +125,15 @@ Ball ball;
     if (ball.x < 0) {
       ball = new Ball(650, 400);
       rPaddle.score += 1;
+      if (rPaddle.bot) {
+        rPaddle.calculateTarget(ball);
+      }
     } else if (ball.x > 1300) {
       ball = new Ball(650, 400);
       lPaddle.score += 1;
+      if (rPaddle.bot) {
+        rPaddle.calculateTarget(ball);
+      }
     }
   }
   private int randomInt(int min, int max) {
