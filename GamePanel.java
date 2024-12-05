@@ -9,6 +9,7 @@ int players;
 Paddle rPaddle;
 Paddle lPaddle;
 Ball ball;
+int[][] backBinary;
 
  GamePanel(int inPlayers){
   this.setPreferredSize(new Dimension(1300,800));
@@ -17,6 +18,7 @@ Ball ball;
   players = inPlayers;
   startUp();
  }
+ //This sets my variables, separate block for resets. (This is a practice I have developed in my personal code)
  public void startUp() {
   rPaddle = new Paddle(1250,400, false);
   lPaddle = new Paddle(50,400, false);
@@ -28,6 +30,13 @@ Ball ball;
     rPaddle.bot = true;
     rPaddle.calculateTarget(ball);
   }
+  //Setting up the cool binary grapics
+  backBinary = new int[29][13];
+  for (int x = 0; x < 29; x++) {
+    for (int y = 0; y < 13; y++) {
+      backBinary[x][y] = randomInt(0, 2);
+    }
+  }
  }
  
  public void paint(Graphics g) {
@@ -37,15 +46,23 @@ Ball ball;
   //Back
   g2D.setPaint(Color.black);
   g2D.fillRect(0, 0, 1300, 800);
+  //The binary
+  g2D.setFont(new Font("Comic Sans MS", 1,50));
+  g2D.setPaint(new Color(0, 50, 0));
+  for (int x = 0; x < 29; x++) {
+    for (int y = 0; y < 13; y++) {
+      g2D.drawString("" + backBinary[x][y],x * 45, (y + 1) * 60);
+    }
+  }
   //Line
   g2D.setPaint(Color.white);
   for (int i = 40; i < 800; i+= 80) {
     g2D.fillRect(645, i, 10, 40);
   }
-  //Score
+  //Score (and formatting)
   g2D.setFont(new Font("Comic Sans MS", 1,75));
-  g2D.drawString(lPaddle.score + "", 550, 80);
-  g2D.drawString(rPaddle.score + "", 710, 80);
+  g2D.drawString(String.format("%02d", lPaddle.score), 545, 80);
+  g2D.drawString(String.format("%02d", rPaddle.score), 665, 80);
   //rPaddle
   g2D.fillRect(rPaddle.x, rPaddle.getTop(), rPaddle.depth, rPaddle.height * 2);
   //lPaddle
@@ -53,12 +70,15 @@ Ball ball;
   //ball
   g2D.fillRect(ball.x - 10, ball.getTop(), 10, 10);
  }
-  @Override
+  @Override//This is the action the timer runs AKA a frame
 	public void actionPerformed(ActionEvent e) {
     rPaddle.advance();
     lPaddle.advance();
     ball.advance();
     ballChecks();
+    for (int i = 0; i < rPaddle.score + lPaddle.score + 1; i++) {//Shifts some binary, more shifts the higher score to increase tension
+      backBinary[randomInt(0, 29)][randomInt(0, 13)] = randomInt(0, 2);
+    }
     repaint();
   }
 

@@ -32,6 +32,6 @@ public class Ball extends Coord implements Cloneable {
   }
   public Object clone() throws CloneNotSupportedException 
     { 
-        return super.clone(); 
+      return super.clone(); 
     } 
 }
