@@ -1,6 +1,6 @@
-public class Paddle extends Coord {
-  int height;
-  int depth;
+public class Paddle extends Coord {//Defining the class
+  final int height = 50;//The paddles height (Only changes for playtesting) default is 50
+  final int depth = 10;//The paddle's depth/width (Only changes for playtesting) default is 10
   int move;
   int speed;
   int score;
@@ -9,8 +9,6 @@ public class Paddle extends Coord {
 
   Paddle(int inX, int inY, boolean inBot) {
     super(inX,inY);
-    height = 50;
-    depth = 10;
     move = 0;
     speed = 7;
     bot = inBot;
