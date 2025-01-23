@@ -10,6 +10,7 @@ Paddle lPaddle;//The top hand side paddle
 //^ Nah just screwing with you it's the left paddle
 Ball ball;//The ball
 int[][] backBinary;//Super rad binary graphics
+Coord backFlip;
 //^ Crucial to the program not just here because I had to have an array and the rest of this was already done
 //Blank line for space
  GamePanel(int inPlayers){//The constructor, takes in a player count
@@ -45,6 +46,7 @@ int[][] backBinary;//Super rad binary graphics
       (recall that randomInt will never produce the maximum due to my own lazyness)*/
     }//End for loop that cycles y coords
   }//End for loop that cycles x coords
+  backFlip = new Coord(0, 0);
  }//End defining method
  //Blank line for space
  public void paint(Graphics g) {//The program's paint code. Uses a graphics object. I do not know where the graphics object comes from
@@ -65,6 +67,8 @@ int[][] backBinary;//Super rad binary graphics
       *///End of comment
     }//End curly bracket
   }//End curly bracket
+  //g2D.setColor(Color.red);
+  //g2D.drawRect(getBinaryBallCoord().x * 45, getBinaryBallCoord().y * 60, 45, 60);//Debug ball scan
   //Line
   g2D.setPaint(Color.white);//Set color to white
   for (int i = 40; i < 800; i+= 80) {//Loop to paint the dashed line in board center
@@ -90,6 +94,7 @@ int[][] backBinary;//Super rad binary graphics
     for (int i = 0; i < rPaddle.score + lPaddle.score + 1; i++) {//Shifts some binary, more shifts the higher score to increase tension
       backBinary[randomInt(0, 29)][randomInt(0, 13)] = randomInt(0, 2);//Shuffle a random back binary's digits a bit
     }//End curly bracket
+    binaryTrail();
     repaint();//Repaint the panel
   }//End curly bracket
 //Blank line for space
@@ -173,12 +178,14 @@ int[][] backBinary;//Super rad binary graphics
   private int randomInt(int min, int max) {//declare method
     return (int)((Math.random() * max) + min);//generate random number and return it
   }//End curly bracket
+  private void binaryTrail() {
+    Coord temp = getBinaryBallCoord();
+    backBinary[temp.x][temp.y] = 0;
+  }
   private Coord getBinaryBallCoord() {
-    Coord re = new Coord(0, 0);
-    for (int i = 0; i < 1305; i+= 45) {
-      if (ball.x < i) {
-        re.x = i / 45;
-      }
+    Coord re = new Coord(ball.x / 45, (ball.y / 60));
+    if (re.y == 13) {
+      re.y = 12;
     }
     return re;
   }
