@@ -14,6 +14,7 @@ int[][] backBinary;//Super rad binary graphics
 //Blank line for space
  GamePanel(int inPlayers){//The constructor, takes in a player count
   this.setPreferredSize(new Dimension(1300,800));//This sets up the panels size
+  this.setBackground(Color.black);
   timer = new Timer(5, this);//Sets up the timer
 	timer.start();//starts the timer
   players = inPlayers;//Esablishes player count
@@ -154,6 +155,7 @@ int[][] backBinary;//Super rad binary graphics
     //Left
     if (ball.x < 0) {//if ball is offscreen to the left
       ball = new Ball(650, 400);//reset ball
+      ball.hSpeed = -5;//Flip its speed to serve to failure
       rPaddle.score += 1;//add score
       if (rPaddle.bot) {//if right paddle is bot
         rPaddle.calculateTarget(ball);//calculate right padddle's target (ball defaults to this direction)
@@ -171,4 +173,13 @@ int[][] backBinary;//Super rad binary graphics
   private int randomInt(int min, int max) {//declare method
     return (int)((Math.random() * max) + min);//generate random number and return it
   }//End curly bracket
+  private Coord getBinaryBallCoord() {
+    Coord re = new Coord(0, 0);
+    for (int i = 0; i < 1305; i+= 45) {
+      if (ball.x < i) {
+        re.x = i / 45;
+      }
+    }
+    return re;
+  }
 }//End curly bracket
