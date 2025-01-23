@@ -162,8 +162,8 @@ Coord backFlip;
       ball = new Ball(650, 400);//reset ball
       ball.hSpeed = -5;//Flip its speed to serve to failure
       rPaddle.score += 1;//add score
-      if (rPaddle.bot) {//if right paddle is bot
-        rPaddle.calculateTarget(ball);//calculate right padddle's target (ball defaults to this direction)
+      if (lPaddle.bot) {//if right paddle is bot
+        lPaddle.calculateTarget(ball);//calculate right padddle's target (ball defaults to this direction)
       }//End curly bracket
     //Right
     } else if (ball.x > 1300) {//if ball is offscreen to the right
