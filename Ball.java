@@ -24,8 +24,14 @@ public class Ball extends Coord implements Cloneable {
     //The ball may be moving backwards, so it may be neccesary to subtract from the ball's speed to make it faster
     if (hSpeed < 0) {
       hSpeed -= am;
+      if (hSpeed > -5) {
+        hSpeed = -5;
+      }
     } else {
       hSpeed += am;
+      if (hSpeed < 5) {
+        hSpeed = 5;
+      }
     }
   }
   //Increase the balls vertical speed

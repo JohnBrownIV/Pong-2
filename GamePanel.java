@@ -61,10 +61,17 @@ Coord backFlip;
   g2D.setPaint(new Color(0, 50, 0));//set the paint to a dark green color so that it does not make the game unplayably horrible to look at
   for (int x = 0; x < 29; x++) {//Looping through the awesome binary backdrop's 29 horizontal coordinates
     for (int y = 0; y < 13; y++) {//Looping through the awesome binary backdrop's 13 vertical coordinates
+    try {
+      g2D.setPaint(new Color((Math.abs(ball.hSpeed) - 5) * 2, 255 / (distanceToBall((x * 45) + 22, (y * 60) + 60)) * (rPaddle.score + lPaddle.score) + rPaddle.score + lPaddle.score, 0));
+    } catch (IllegalArgumentException e) {
+      g2D.setPaint(new Color(0, 255, 0));
+    }
+      
       g2D.drawString("" + backBinary[x][y],x * 45, (y + 1) * 60);/*Drawing the binary as a string. I have to add a string to it due to how the drawString method worls. 
       The binary's x position is multiplied by 45 to shift the binary into the ideal grid. The binary's y position is multiplied by 60 to place the binary's 
       rows into the ideal distance apart. One is added to the y beforehand so that no numbers are drawn off of the screen
       *///End of comment
+      //g2D.drawString("" + distanceToBall((x * 45) + 22, (y * 60) + 90),x * 45, (y + 1) * 60);//Test Distance to ball
     }//End curly bracket
   }//End curly bracket
   //g2D.setColor(Color.red);
@@ -186,6 +193,15 @@ Coord backFlip;
     Coord re = new Coord(ball.x / 45, (ball.y / 60));
     if (re.y == 13) {
       re.y = 12;
+    }
+    return re;
+  }
+  private int distanceToBall(int x, int y) {
+    int vert = Math.abs(y - ball.y);
+    int hor = Math.abs(x - ball.x);
+    int re = (int)Math.round(Math.sqrt((vert * vert) + (hor * hor)));
+    if (re == 0) {
+      return 1;
     }
     return re;
   }
